@@ -33,6 +33,11 @@ class Oscillator extends Component {
     this.setup(this.props)
   }
 
+  componentWillUnmount () {
+    const { destination } = this.context
+    this.oscillator.disconnect(destination)
+  }
+
   componentWillReceiveProps (nextProps) {
     this.setup(nextProps)
   }

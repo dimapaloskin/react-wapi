@@ -9,7 +9,7 @@ class Gain extends Component {
     this.gain = audioContext.createGain()
     props.onCreate && props.onCreate(this.gain)
     this.gain.connect(destination)
-    this.setup(props)
+    
   }
 
   getChildContext () {
@@ -17,6 +17,15 @@ class Gain extends Component {
       audioContext: this.context.audioContext,
       destination: this.gain
     }
+  }
+
+  componentWillMount () {
+    this.setup(this.props)
+  }
+
+  componentWillUnmount () {
+    const { destination } = this.context
+    this.gain.disconnect(destination)
   }
 
   componentWillReceiveProps (nextProps) {
