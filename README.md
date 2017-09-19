@@ -1,5 +1,6 @@
 # react-wapi
 
+[short demo](https://wapi-test.now.sh/)
 ## Drafts for something like that:
 
 ```js
