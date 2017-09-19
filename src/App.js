@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Context from './components/Context'
 import Gain from './components/Gain'
 import Oscillator from './components/Oscillator'
+import Tick from './components/Tick'
 
 class App extends Component {
   constructor(props) {
@@ -10,12 +11,14 @@ class App extends Component {
     this.changeFrequency = this.changeFrequency.bind(this)
     this.changeDetune = this.changeDetune.bind(this)
     this.changeGain = this.changeGain.bind(this)
+    this.onTick = this.onTick.bind(this)
 
     this.state = {
       frequency: 440,
       detune: 0,
-      gain: 50,
-      realGain: 50 / 100
+      gain: 0,
+      realGain: 0,
+      needPlay: true
     }
   }
 
@@ -45,9 +48,19 @@ class App extends Component {
     })
   }
 
+  onTick () {
+    console.log('tick')
+    const { needPlay } = this.state
+    this.setState({
+      needPlay: !needPlay,
+      realGain: needPlay ? 0.5 : 0
+    })
+  }
+
   render() {
     return (
       <div className="App">
+        <Tick bpm={200} steps={2} onTick={this.onTick} run={false} />
         <Context onContextCreated={this.onContextCreated}>
           <Gain gain={this.state.realGain}>
             <Oscillator
