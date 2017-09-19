@@ -7,10 +7,7 @@ class Context extends Component {
   constructor (props) {
     super(props)
     this.audioContext = new window.AudioContext()
-
-    if (props.onContextCreated) {
-      props.onContextCreated(this.audioContext)
-    }
+    props.onCreate && props.onCreate(this.audioContext)
   }
 
   getChildContext () {
@@ -30,7 +27,7 @@ class Context extends Component {
 }
 
 Context.propTypes = {
-  onContextCreated: PropTypes.func
+  onCreate: PropTypes.func
 }
 
 Context.childContextTypes = {

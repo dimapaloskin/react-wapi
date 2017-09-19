@@ -12,13 +12,16 @@ class App extends Component {
     this.changeDetune = this.changeDetune.bind(this)
     this.changeGain = this.changeGain.bind(this)
     this.onTick = this.onTick.bind(this)
+    this.toggleTick = this.toggleTick.bind(this)
 
     this.state = {
       frequency: 440,
       detune: 0,
       gain: 0,
       realGain: 0,
-      needPlay: true
+      needPlay: true,
+      runTickTock: false,
+      step: 0
     }
   }
 
@@ -49,19 +52,31 @@ class App extends Component {
   }
 
   onTick () {
-    console.log('tick')
-    const { needPlay } = this.state
+    const { needPlay, step } = this.state
+    const nextStep = (step === 7) ? 0 : step + 1
+  
     this.setState({
       needPlay: !needPlay,
-      realGain: needPlay ? 0.5 : 0
+      realGain: needPlay ? 0.5 : 0,
+      frequency: step === 0 ? 440 : 300,
+      step: nextStep
+    })
+  }
+
+  toggleTick () {
+    const next = !this.state.runTickTock
+    this.setState({
+      runTickTock: next,
+      realGain: next ? this.state.realGain : 0,
+      step: next ? this.state.step : 0
     })
   }
 
   render() {
     return (
       <div className="App">
-        <Tick bpm={200} steps={2} onTick={this.onTick} run={false} />
-        <Context onContextCreated={this.onContextCreated}>
+        <Tick bpm={200} steps={2} onTick={this.onTick} run={this.state.runTickTock} />
+        <Context onCreate={this.onContextCreated}>
           <Gain gain={this.state.realGain}>
             <Oscillator
               type="triangle"
@@ -102,6 +117,9 @@ class App extends Component {
             value={this.state.gain}
             onChange={this.changeGain}
           />
+          <div>
+            <button onClick={this.toggleTick}>Toggle tick tock</button>
+          </div>
         </div>
       </div>
     );

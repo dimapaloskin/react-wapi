@@ -7,8 +7,8 @@ class Gain extends Component {
 
     const { audioContext, destination } = context
     this.gain = audioContext.createGain()
+    props.onCreate && props.onCreate(this.gain)
     this.gain.connect(destination)
-
     this.setup(props)
   }
 
@@ -38,7 +38,8 @@ class Gain extends Component {
 }
 
 Gain.propTypes = {
-  gain: PropTypes.number
+  gain: PropTypes.number,
+  onCreate: PropTypes.func
 }
 
 Gain.defaultProps = {

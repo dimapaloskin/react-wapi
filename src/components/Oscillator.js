@@ -11,6 +11,7 @@ class Oscillator extends Component {
 
     const { audioContext, destination } = context
     this.oscillator = audioContext.createOscillator()
+    props.onCreate && props.onCreate(this.oscillator)
     this.oscillator.connect(destination)
   }
 
@@ -51,7 +52,8 @@ Oscillator.propTypes = {
   type: PropTypes.string,
   frequency: PropTypes.number,
   detune: PropTypes.number,
-  start: PropTypes.bool
+  start: PropTypes.bool,
+  onCreate: PropTypes.func
 }
 
 Oscillator.defaultProps = {
