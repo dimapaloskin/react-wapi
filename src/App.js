@@ -18,7 +18,6 @@ class App extends Component {
       frequency: 440,
       detune: 0,
       gain: 0,
-      realGain: 0,
       needPlay: true,
       runTickTock: false,
       step: 0
@@ -46,7 +45,6 @@ class App extends Component {
   changeGain (event) {
     const { value } = event.target
     this.setState({
-      realGain: (parseInt(value, 10) / 100),
       gain: value
     })
   }
@@ -57,7 +55,7 @@ class App extends Component {
   
     this.setState({
       needPlay: !needPlay,
-      realGain: needPlay ? 0.5 : 0,
+      gain: needPlay ? 50 : 0,
       frequency: step === 0 ? 440 : 300,
       step: nextStep
     })
@@ -67,7 +65,7 @@ class App extends Component {
     const next = !this.state.runTickTock
     this.setState({
       runTickTock: next,
-      realGain: next ? this.state.realGain : 0,
+      gain: next ? this.state.gain : 0,
       step: next ? this.state.step : 0
     })
   }
@@ -77,7 +75,7 @@ class App extends Component {
       <div className="App">
         <Tick bpm={200} steps={2} onTick={this.onTick} run={this.state.runTickTock} />
         <Context onCreate={this.onContextCreated}>
-          <Gain gain={this.state.realGain}>
+          <Gain gain={this.state.gain / 100}>
             <Oscillator
               type="triangle"
               frequency={this.state.frequency}
