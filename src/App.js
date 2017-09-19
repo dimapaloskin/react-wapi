@@ -19,6 +19,10 @@ class App extends Component {
     }
   }
 
+  onContextCreated(audioContext) {
+    console.log(audioContext)
+  }
+
   changeFrequency (event) {
     const { value } = event.target
     this.setState({
@@ -44,13 +48,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Context>
+        <Context onContextCreated={this.onContextCreated}>
           <Gain gain={this.state.realGain}>
             <Oscillator
               type="triangle"
               frequency={this.state.frequency}
               detune={this.state.detune}
-              start={true}
+              start={false}
             />
           </Gain>
         </Context>

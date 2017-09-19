@@ -4,9 +4,11 @@ import PropTypes from 'prop-types'
 class Gain extends Component {
   constructor (props, context) {
     super(props, context)
+
     const { audioContext, destination } = context
     this.gain = audioContext.createGain()
     this.gain.connect(destination)
+
     this.setup(props)
   }
 
@@ -31,17 +33,17 @@ class Gain extends Component {
   }
 }
 
-Gain.childContextTypes = {
-  audioContext: PropTypes.instanceOf(window.AudioContext),
-  destination: PropTypes.instanceOf(window.AudioNode)
-}
-
 Gain.propTypes = {
   gain: PropTypes.number
 }
 
 Gain.defaultProps = {
   gain: 1
+}
+
+Gain.childContextTypes = {
+  audioContext: PropTypes.instanceOf(window.AudioContext),
+  destination: PropTypes.instanceOf(window.AudioNode)
 }
 
 Gain.contextTypes = {

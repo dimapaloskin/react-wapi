@@ -1,10 +1,16 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 
+// TODO: sampleRate
+// https://developer.mozilla.org/ru/docs/Web/API/AudioContext
 class Context extends Component {
   constructor (props) {
     super(props)
     this.audioContext = new window.AudioContext()
+
+    if (props.onContextCreated) {
+      props.onContextCreated(this.audioContext)
+    }
   }
 
   getChildContext () {
@@ -17,6 +23,10 @@ class Context extends Component {
   render () {
     return this.props.children || null
   }
+}
+
+Context.propTypes = {
+  onContextCreated: PropTypes.func
 }
 
 Context.childContextTypes = {
