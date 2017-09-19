@@ -65,7 +65,7 @@ Oscillator.defaultProps = {
   type: 'sine',
   frequency: 440,
   detune: 0,
-  start: false
+  start: true
 }
 
 Oscillator.contextTypes = {
