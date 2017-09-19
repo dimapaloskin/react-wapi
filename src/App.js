@@ -54,7 +54,7 @@ class App extends Component {
               type="triangle"
               frequency={this.state.frequency}
               detune={this.state.detune}
-              start={false}
+              start={true}
             />
           </Gain>
         </Context>

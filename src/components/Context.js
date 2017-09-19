@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 // TODO: sampleRate
@@ -21,7 +21,11 @@ class Context extends Component {
   }
 
   render () {
-    return this.props.children || null
+    return (
+      <noscript>
+        {this.props.children || null}
+      </noscript>
+    )
   }
 }
 

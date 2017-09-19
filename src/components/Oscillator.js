@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class Oscillator extends Component {
@@ -37,7 +37,11 @@ class Oscillator extends Component {
   }
 
   render () {
-    return this.props.children || null
+    return (
+      <noscript>
+        {this.props.children || null}
+      </noscript>
+    )
   }
 }
 
